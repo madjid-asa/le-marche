@@ -57,7 +57,6 @@
             <div class="s-section__col col-12 col-lg-7">
                 <div class="{% if wizard.steps.current != wizard.steps.last %}c-form{% endif %}">
                     <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
 
                         {{ wizard.management_form }}
 

@@ -27,6 +27,7 @@
 {% block step_subtitle %}C'est tout bon ! Vérifier quand même que toutes les informations soient exactes.{% endblock %}
 
 {% block content_form %}
+{% csrf_token %}
 {% include "tenders/detail_card.html" with tender=tender hide_cta="true" %}
 {% endblock %}
 

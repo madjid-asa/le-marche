@@ -27,6 +27,7 @@
 {% block step_subtitle %}Vous y êtes presque ! Veuillez remplir les informations que nous partagerons aux prestataires inclusifs pour qu'elles puissent vous contacter.{% endblock %}
 
 {% block content_form %}
+{% csrf_token %}
 <fieldset>
     <div class="form-row">
         {% bootstrap_field form.contact_first_name form_group_class="form-group col-12 col-md-6" %}
