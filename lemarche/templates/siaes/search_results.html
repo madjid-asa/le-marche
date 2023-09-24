@@ -51,7 +51,18 @@
                                aria-controls="search-text"
                                aria-selected="false">
                                 Recherche par SIRET / nom
-                                <span class="badge badge-sm badge-pill badge-important ml-2">Nouveauté</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link"
+                               id="search-full-text-tab"
+                               data-toggle="tab"
+                               href="#search-full-text"
+                               role="tab"
+                               aria-controls="search-full-text"
+                               aria-selected="false">
+                                Recherche naturelle
+                                <span class="badge badge-sm badge-pill badge-important ml-2">Beta</span>
                             </a>
                         </li>
                         <li class="nav-item-dropdown dropdown">
@@ -178,6 +189,34 @@
                                     <div class="col-12 col-lg-8">
                                         <div class="row">
                                             <div class="col-12">{% bootstrap_field form.q %}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <span class="mb-2 d-none d-md-inline-block">&nbsp;</span>
+                                        <button id="text-search-submit"
+                                                class="btn btn-primary btn-block btn-ico"
+                                                type="submit">
+                                            <span>Rechercher</span>
+                                            <i class="ri-search-line ri-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade"
+                             id="search-full-text"
+                             role="tabpanel"
+                             aria-labelledby="search-full-text-tab">
+                            <form method="GET"
+                                  action="{% url 'siae:search_results' %}"
+                                  id="text-search-form"
+                                  aria-label="Rechercher des prestataires de l'insertion et du handicap"
+                                  role="search">
+                                {% bootstrap_form_errors form type="all" %}
+                                <div class="row">
+                                    <div class="col-12 col-lg-8">
+                                        <div class="row">
+                                            <div class="col-12">{% bootstrap_field form.search %}</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
@@ -373,14 +412,18 @@ document.addEventListener('alpine:init', function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
+    // first tab
     let searchFilterTab = document.getElementById('search-filter-tab');
     let searchFilterContent = document.getElementById('search-filter');
-    // let perimetersInput = document.getElementById('id_perimeters');
-    // let sectorsInput = document.getElementById('id_sectors');  // id_sectors_multiselect
-
+    // second tab
     let searchTextTab = document.getElementById('search-text-tab');
     let searchTextContent = document.getElementById('search-text');
     let qInput = document.getElementById('id_q');
+    // third tab
+    let searchFullTextTab = document.getElementById('search-full-text-tab');
+    let searchFullTextContent = document.getElementById('search-full-text');
+    let searchInput = document.getElementById('id_search');
+    // other form elements
     let resetBtn = document.getElementById('form-reset-btn');
 
     if (resetBtn){
@@ -388,7 +431,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // init search form
-    if (qInput.value) {
+    if (searchInput.value) {
+        showSearchTextForm(searchFullTextTab, searchFullTextContent);
+    }
+    else if (qInput.value) {
         showSearchTextForm(searchTextTab, searchTextContent);
         // hideSearchFilterForm(searchFilterTab, searchFilterContent);
     } else {
