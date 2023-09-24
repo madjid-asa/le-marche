@@ -180,6 +180,7 @@ class SiaeAdmin(FieldsetsInlineMixin, gis_admin.OSMGeoAdmin):
         "tender_email_link_click_count_with_link",
         "tender_detail_display_count_with_link",
         "tender_detail_contact_click_count_with_link",
+        "search_vector",
         "signup_date",
         "content_filled_basic_date",
         "logs_display",
@@ -303,6 +304,7 @@ class SiaeAdmin(FieldsetsInlineMixin, gis_admin.OSMGeoAdmin):
                 )
             },
         ),
+        ("Recherche", {"fields": ("search_vector",)}),
         (
             "Stats",
             {
