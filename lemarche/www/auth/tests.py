@@ -4,7 +4,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 from lemarche.users.factories import DEFAULT_PASSWORD, UserFactory
 from lemarche.users.models import User
@@ -89,7 +89,7 @@ class SignupFormTest(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         # selenium browser  # TODO: make it test-wide
-        options = Options()
+        options = FirefoxOptions()
         options.headless = True
         cls.driver = webdriver.Firefox(options=options)
         # cls.driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver')
@@ -243,7 +243,7 @@ class LoginFormTest(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        options = Options()
+        options = FirefoxOptions()
         options.headless = True
         cls.driver = webdriver.Firefox(options=options)
         cls.driver.implicitly_wait(1)
